@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0d14" />
+    <title>Hermes Autopilot | Delivery Operations</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Hermes Autopilot home">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span>
+            <strong>HERMES</strong>
+            <small>AUTOPILOT CONTROL ROOM</small>
+          </span>
+        </a>
+        <div class="topbar-meta">
+          <span class="live-indicator"><i></i> Live local simulation</span>
+          <span class="date-stamp">THU · 01 JAN 2026</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow">DELIVERY OPERATIONS / 01</div>
+            <h1>Make every delivery<br /><em>feel inevitable.</em></h1>
+            <p>
+              Hermes turns incoming orders into a clear dispatch plan, then keeps
+              working when the real world changes.
+            </p>
+          </div>
+          <div class="hero-actions">
+            <button class="button button-primary" id="assign-button">
+              <span class="button-icon">✦</span> Run autopilot plan
+            </button>
+            <button class="button button-secondary" id="reset-button">Reset demo</button>
+          </div>
+        </section>
+
+        <section class="metrics" aria-label="Operations summary">
+          <article class="metric-card metric-highlight">
+            <span class="metric-label">Orders in system</span>
+            <strong class="metric-value" id="orders-total">—</strong>
+            <span class="metric-foot" id="orders-foot">Loading dispatch state</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Active assignments</span>
+            <strong class="metric-value" id="assignments-total">—</strong>
+            <span class="metric-foot">Driver workloads in motion</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Open exceptions</span>
+            <strong class="metric-value metric-alert" id="exceptions-total">—</strong>
+            <span class="metric-foot" id="exceptions-foot">No incidents detected</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Fleet capacity</span>
+            <strong class="metric-value" id="capacity-total">—</strong>
+            <span class="metric-foot" id="capacity-foot">Available capacity</span>
+          </article>
+        </section>
+
+        <section class="workspace-grid">
+          <article class="panel intelligence-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="section-kicker">AUTOPILOT BRIEF</span>
+                <h2>Dispatch intelligence</h2>
+              </div>
+              <span class="status-badge" id="plan-status">STANDBY</span>
+            </div>
+            <div class="intelligence-body">
+              <div class="signal-orb" aria-hidden="true"><span>✦</span></div>
+              <div>
+                <p class="recommendation" id="recommendation">Loading the current plan…</p>
+                <p class="recommendation-detail" id="recommendation-detail">
+                  Hermes will explain the next operational move here.
+                </p>
+              </div>
+            </div>
+            <div class="plan-meter">
+              <div class="meter-labels"><span>Plan confidence</span><strong id="confidence-value">—</strong></div>
+              <div class="meter-track"><span id="confidence-bar"></span></div>
+            </div>
+            <div class="decision-note">
+              <span class="note-icon">i</span>
+              <span>High-impact changes stay visible to the manager before they are committed.</span>
+            </div>
+          </article>
+
+          <article class="panel activity-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="section-kicker">EVENT STREAM</span>
+                <h2>What just happened</h2>
+              </div>
+              <span class="activity-count" id="activity-count">0 events</span>
+            </div>
+            <ol class="activity-list" id="activity-list" aria-live="polite"></ol>
+          </article>
+        </section>
+
+        <section class="lower-grid">
+          <article class="panel fleet-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="section-kicker">THE FLEET</span>
+                <h2>Driver capacity</h2>
+              </div>
+              <span class="panel-caption">Live workload</span>
+            </div>
+            <div class="fleet-list" id="fleet-list"></div>
+          </article>
+
+          <article class="panel orders-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="section-kicker">ORDER QUEUE</span>
+                <h2>Orders in motion</h2>
+              </div>
+              <span class="panel-caption" id="order-caption">—</span>
+            </div>
+            <div class="orders-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Assigned to</th>
+                    <th><span class="sr-only">Action</span></th>
+                  </tr>
+                </thead>
+                <tbody id="orders-list"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="how-it-works">
+          <span class="section-kicker">THE DEMO LOOP</span>
+          <div class="loop-steps">
+            <div class="loop-step"><b>01</b><span>Orders arrive</span></div>
+            <span class="loop-arrow">→</span>
+            <div class="loop-step"><b>02</b><span>Autopilot assigns</span></div>
+            <span class="loop-arrow">→</span>
+            <div class="loop-step"><b>03</b><span>A delay is detected</span></div>
+            <span class="loop-arrow">→</span>
+            <div class="loop-step"><b>04</b><span>Hermes recovers</span></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>HERMES AUTOPILOT / EXPLAINABLE OPERATIONS</span>
+        <span>Built for the next delivery decision.</span>
+      </footer>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
